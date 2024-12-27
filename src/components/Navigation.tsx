@@ -1,8 +1,10 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Menu, X } from 'lucide-react';
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [prevScrollPos, setPrevScrollPos] = useState(0);
+  const [visible, setVisible] = useState(true);
 
   const navItems = [
     { name: 'Courses', path: '#courses' },
@@ -12,8 +14,24 @@ const Navigation = () => {
     { name: 'Pricing', path: '#pricing' },
   ];
 
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      
+      // Make navigation visible when scrolling up or at the top of the page
+      setVisible(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [prevScrollPos]);
+
   return (
-    <nav className="fixed w-full bg-white shadow-sm z-50">
+    <nav className={`fixed w-full bg-white shadow-sm z-50 transition-transform duration-300 ${
+      visible ? 'translate-y-0' : '-translate-y-full'
+    }`}>
       <div className="container mx-auto px-4">
         <div className="flex justify-between items-center h-16">
           <a href="#home" className="text-2xl font-bold text-primary">
