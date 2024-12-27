@@ -3,8 +3,38 @@ import Navigation from '../components/Navigation';
 import ScrollAnimation from '../components/ScrollAnimation';
 import { ArrowRight, BookOpen, Users, Award, CheckCircle, DollarSign } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
 
 const Index = () => {
+  const heroSlides = [
+    {
+      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7",
+      title: "Launch Your Tech Career with Expert-Led Training",
+      description: "Join our intensive bootcamp and master the skills needed for today's tech industry. Learn from industry experts and build real-world projects."
+    },
+    {
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+      title: "Learn from Industry Experts",
+      description: "Get hands-on experience with cutting-edge technologies and real-world projects guided by experienced professionals."
+    },
+    {
+      image: "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7",
+      title: "Build Your Future in Tech",
+      description: "Transform your career with comprehensive training in web development, data science, and UI/UX design."
+    },
+    {
+      image: "https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d",
+      title: "Start Your Journey Today",
+      description: "Join our community of learners and begin your path to a successful career in technology."
+    }
+  ];
+
   const courses = [
     {
       title: 'Web Development Bootcamp',
@@ -126,37 +156,54 @@ const Index = () => {
     <div className="min-h-screen bg-secondary">
       <Navigation />
       
-      {/* Hero Section */}
-      <section id="home" className="pt-24 pb-12 md:pt-32 md:pb-24">
-        <div className="container mx-auto px-4">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-4xl md:text-6xl font-bold text-textColor mb-6 animate-fadeIn">
-              Launch Your Tech Career with Expert-Led Training
-            </h1>
-            <p className="text-lg md:text-xl text-textColor-light mb-8 animate-fadeIn">
-              Join our intensive bootcamp and master the skills needed for today's tech industry.
-              Learn from industry experts and build real-world projects.
-            </p>
-            <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fadeIn">
-              <a
-                href="#courses"
-                className="bg-primary text-white px-6 py-3 rounded-md hover:bg-primary-hover transition-colors flex items-center justify-center gap-2"
-              >
-                Explore Courses
-                <ArrowRight size={20} />
-              </a>
-              <a
-                href="#curriculum"
-                className="bg-white text-primary px-6 py-3 rounded-md hover:bg-secondary-dark transition-colors"
-              >
-                View Curriculum
-              </a>
-            </div>
-          </div>
-        </div>
+      {/* Hero Section with Carousel */}
+      <section id="home" className="relative w-full h-screen">
+        <Carousel className="w-full h-full">
+          <CarouselContent>
+            {heroSlides.map((slide, index) => (
+              <CarouselItem key={index} className="relative w-full h-[100vh]">
+                <div 
+                  className="absolute inset-0 w-full h-full bg-cover bg-center"
+                  style={{
+                    backgroundImage: `url(${slide.image})`,
+                  }}
+                >
+                  {/* Dark overlay for better text visibility */}
+                  <div className="absolute inset-0 bg-black/50"></div>
+                </div>
+                <div className="relative z-10 flex items-center justify-center h-full">
+                  <div className="container mx-auto px-4 text-center text-white">
+                    <h1 className="text-4xl md:text-6xl font-bold mb-6 animate-fadeIn">
+                      {slide.title}
+                    </h1>
+                    <p className="text-lg md:text-xl mb-8 animate-fadeIn max-w-3xl mx-auto">
+                      {slide.description}
+                    </p>
+                    <div className="flex flex-col sm:flex-row justify-center gap-4 animate-fadeIn">
+                      <a
+                        href="#courses"
+                        className="bg-primary text-white px-6 py-3 rounded-md hover:bg-primary-hover transition-colors flex items-center justify-center gap-2"
+                      >
+                        Explore Courses
+                        <ArrowRight size={20} />
+                      </a>
+                      <a
+                        href="#curriculum"
+                        className="bg-white/10 backdrop-blur-sm text-white px-6 py-3 rounded-md hover:bg-white/20 transition-colors"
+                      >
+                        View Curriculum
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </CarouselItem>
+            ))}
+          </CarouselContent>
+          <CarouselPrevious className="left-4" />
+          <CarouselNext className="right-4" />
+        </Carousel>
       </section>
 
-      {/* About Section */}
       <section id="about" className="py-12 bg-white">
         <ScrollAnimation className="container mx-auto px-4">
           <div className="max-w-4xl mx-auto text-center mb-16">
