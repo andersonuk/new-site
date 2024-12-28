@@ -7,7 +7,7 @@ const Navigation = () => {
   const [visible, setVisible] = useState(true);
 
   const navItems = [
-    { name: 'Courses', path: '#courses' },
+    { name: 'test', path: '#teste' },
     { name: 'About', path: '#about' },
     { name: 'Testimonials', path: '#testimonials' },
     { name: 'Curriculum', path: '#curriculum' },
